@@ -1,29 +1,35 @@
-#include <Servo.h>
 
-Servo myServo;
+#include <Arduino.h>
+#include <ESP32Servo.h>
 
-const int SERVO_PIN = 15;  // GP15
+Servo testServo;
+
+const int SERVO_PIN = 12;
 
 void setup() {
-  myServo.attach(SERVO_PIN);
-
-  // Start at center
-  
-  myServo.write(90);
+  Serial.begin(115200);
   delay(1000);
+
+  testServo.setPeriodHertz(50);
+  testServo.attach(SERVO_PIN, 500, 2500);
+
+  Serial.println("SERVO TEST STARTED");
 }
 
 void loop() {
+  Serial.println("Position: 0 degrees");
+  testServo.write(0);
+  delay(1500);
 
-  // Move to 0 degrees
-  myServo.write(0);
-  delay(1000);
+  Serial.println("Position: 90 degrees");
+  testServo.write(90);
+  delay(1500);
 
-  // Move to 90 degrees
-  myServo.write(90);
-  delay(1000);
+  Serial.println("Position: 180 degrees");
+  testServo.write(180);
+  delay(1500);
 
-  // Back to center
-  myServo.write(90);
-  delay(1000);
+  Serial.println("Returning to 0 degrees");
+  testServo.write(0);
+  delay(1500);
 }
